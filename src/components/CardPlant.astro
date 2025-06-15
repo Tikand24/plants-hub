@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import type { Product } from '../types/plants';
+import logoFinal from '../images/logofinal.jpg';
+
+interface Props extends Product {
+  images: Record<string, { default: ImageMetadata }>;
+}
+
+const { medias, name, price, type, images, _id } = Astro.props;
+
+// Obtener la primera imagen del array medias
+let firstImage = null;
+if (medias.length > 0) {
+  const imagePath = `../${medias[0].filename.replace('vivero', 'images')}.jpg`;
+  firstImage = images[imagePath]?.default;
+}
+//group type by 2 registers
+// Group type array into pairs
+const groupedTypes = type.reduce((acc: any[], curr, i) => {
+  if (i % 2 === 0) {
+    acc.push([curr]);
+  } else {
+    acc[acc.length - 1].push(curr);
+  }
+  return acc;
+}, []);
+---
+
+<div class="relative h-full max-h-[40vh]">
+  <div class="h-full">
+    {
+      firstImage ? (
+        <Image
+          class="aspect-3/3 object-cover rounded-lg h-full w-full drop-shadow-xl"
+          src={firstImage}
+          alt={name}
+          width={400}
+          height={300}
+        />
+      ) : (
+        <Image
+          class="aspect-3/3 object-cover rounded-lg h-full w-full drop-shadow-xl"
+          src={logoFinal}
+          alt={name}
+          width={400}
+          height={300}
+        />
+      )
+    }
+  </div>
+  <div
+    class="absolute bottom-0 w-full h-40 backdrop-blur-md bg-gradient-to-tr from-secondary/90 to-primary/50 backdrop-opacity-90 rounded-b-lg border-t border-white/20"
+  >
+    <div class="flex flex-col justify-between h-full py-2 px-4 gap-2">
+      <div>
+        <h4 class="text-white font-semibold text-2xl">{name}</h4>
+      </div>
+      <div>
+        <h3 class="text-accent text-xl">
+          {
+            Number(price).toLocaleString('es-CO', {
+              style: 'currency',
+              currency: 'COP',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }
+        </h3>
+      </div>
+      <div class="flex justify-between h-10">
+        <div class="flex gap-4">
+          {
+            groupedTypes.map((group) => (
+              <div class="flex flex-col">
+                {group.map((t: any) => (
+                  <div class="flex gap-2 text-accent text-sm">
+                    <span>{t.name}</span>
+                    <span>-</span>
+                    <span>
+                      {Number(t.price).toLocaleString('es-CO', {
+                        style: 'currency',
+                        currency: 'COP',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+        <div>
+          <button
+            class="quote-btn text-base px-4 py-2 text-white bg-button rounded-xl border-primary shadow hover:bg-button/50 cursor-pointer"
+            data-id={`${_id}`}
+            >Cotizar</button
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btnsQuote = document.querySelectorAll(".quote-btn");
+  btnsQuote.forEach((btn)=>{
+    btn.addEventListener("click",()=>{
+      let quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+      const _id = btn.getAttribute('data-id');
+      
+      // Verificar si la planta ya está en la lista
+      const existingIndex = quotationItems.findIndex((item:string) => item === _id);
+      
+      if (existingIndex === -1) {
+        // Agregar la planta
+        
+        quotationItems.push(_id);
+        localStorage.setItem('quotationItems', JSON.stringify(quotationItems));
+        
+        // Cambiar el estilo y texto del botón
+        btn.textContent = 'Agregado';
+        btn.classList.remove('bg-button');
+        btn.classList.add('bg-green-500');
+        btn.classList.add('hover:bg-green-600');
+      } else {
+        // Eliminar la planta
+        quotationItems.splice(existingIndex, 1);
+        localStorage.setItem('quotationItems', JSON.stringify(quotationItems));
+        
+        // Restaurar el estilo y texto original del botón
+        btn.textContent = 'Cotizar';
+        btn.classList.remove('bg-green-500', 'hover:bg-green-600');
+        btn.classList.add('bg-button');
+      }
+      
+      updateQuotationCount();
+    });
+  })
+
+  // Verificar el estado inicial de los botones
+  function checkInitialButtonState() {
+    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const btnsQuote = document.querySelectorAll(".quote-btn");
+    btnsQuote.forEach((btn) => {
+      const _id = btn.getAttribute('data-id');
+      const isInList = quotationItems.some((item:string) => item === _id);
+      
+      if (isInList) {
+        btn.textContent = 'Agregado';
+        btn.classList.remove('bg-button');
+        btn.classList.add('bg-green-500');
+        btn.classList.add('hover:bg-green-600');
+      }
+    });
+  }
+
+  function updateQuotationCount() {
+    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const countElement = document.querySelector('.quotation-count');
+    if (countElement) {
+      countElement.textContent = quotationItems.length;
+    }
+  }
+
+  // Initialize count and button states on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    updateQuotationCount();
+    checkInitialButtonState();
+  });
+</script>

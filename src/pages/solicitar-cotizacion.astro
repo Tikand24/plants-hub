@@ -1,0 +1,242 @@
+---
+import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import datos from '../assets/datos.json';
+
+const { url } = Astro.request;
+
+const ids: string[] = url.split('?')[1].split('=')[1].split(',') || [];
+const plants = datos.data.filter((plant) => ids.includes(plant._id));
+---
+
+<Layout title="Solicitar Cotización - Alto Jardín">
+  <main class="container mx-auto py-8 px-4">
+    <h1 class="text-4xl font-bold text-white mb-8">Solicitar Cotización</h1>
+    <div class="flex gap-28">
+      <div class="flex flex-col gap-4 overflow-y-auto max-h-[70vh] w-3/5">
+        {
+          plants.map((plant) => (
+            <div class="p-4 rounded-lg border border-white/20">
+              <div class="col-span-1">
+                <h2 class="text-2xl font-bold text-white mb-4">{plant.name}</h2>
+              </div>
+              <table class="w-full text-white">
+                <thead>
+                  <tr class="border-b border-white/20">
+                    <th class="text-left">Tipo</th>
+                    <th class="text-right">Precio</th>
+                    <th class="text-right w-24">Cantidad</th>
+                    <th class="text-right w-28">Total</th>
+                    <th class="text-right w-20">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plant.type.map((type) => (
+                    <tr
+                      class="border-b border-white/20 type-row"
+                      id={type._id}
+                      data-id={type._id}
+                      data-plant-id={plant._id}
+                    >
+                      <td class="py-2 text-left">{type.name}</td>
+                      <td
+                        class="py-2 text-right type-price"
+                        data-price={type.price}
+                      >
+                        $ {type.price}
+                      </td>
+                      <td class="py-2 text-right w-24">
+                        <div class="flex items-center justify-end gap-2">
+                          <button
+                            type="button"
+                            class="minus-btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="size-2"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M5 12h14"
+                              />
+                            </svg>
+  
+                            <span class="sr-only">Agregar</span>
+                          </button>
+                          <span class="quantity text-sm">1</span>
+                          <button
+                            type="button"
+                            class="add-btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 18 18"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              class="size-2"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 4.5v15m7.5-7.5h-15"
+                              />
+                            </svg>
+  
+                            <span class="sr-only">Restar</span>
+                          </button>
+                        </div>
+                      </td>
+                      <td class="py-2 text-right w-28 type-total">
+                        $ {type.price}
+                      </td>
+                      <td class="py-2 text-right w-20">
+                        <button
+                          type="button"
+                          data-id={type._id}
+                          class="delete-btn text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-3"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                            />
+                          </svg>
+  
+                          <span class="sr-only">Eliminar</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
+        }
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="mb-4">
+          <h2 class="text-2xl font-bold text-white">Información de la cotización</h2>
+          <h6 class="text-white text-sm">
+            { new Date().toLocaleDateString('es-ES', {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+            }) }
+            <span> - </span>
+            <span class="text-white text-xs">
+              Los precios se mantendran maximo hasta 5 dias despues de la cotizacion.
+            </span>
+          </h6>
+        </div>
+        <div class="flex gap-4 justify-between">
+          <h3 class="text-base font-normal text-white">Tipos de plantas <span id="total-quantity-plants">(0)</span></h3>
+          <h3 class="text-base font-semibold text-white" id="total-price-plants">$ 0</h3>
+        </div>
+        <div class="flex gap-4 justify-between">
+          <h3 class="text-base font-normal text-white">Toneladas de plantas</h3>
+          <h3 class="text-base font-semibold text-white">10</h3>
+        </div>
+        <div class="flex gap-4 justify-between">
+          <h3 class="text-base font-normal text-white">Tipo de transporte aproximado</h3>
+          <h3 class="text-base font-semibold text-white">Camion Tipo Turbo</h3>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h3 class="text-base font-normal text-white">Observaciones</h3>
+          <ul class="text-base font-normal text-white list-disc list-inside">
+            <li>Se puede solicitar servicio de transporte hasta lugar destino.</li>
+            <li>Servicio de carga a su propio medio de transporte.</li>
+            <li>Detalles de colores, tamaños y otros por contacto via whatsapp.</li>
+          </ul>
+        </div>
+        
+    <div class="mt-8 flex justify-end">
+      <button
+        id="submit-quotation"
+        class="bg-button text-white text-xl font-semibold px-8 py-4 cursor-pointer rounded-xl hover:bg-button/80"
+      >
+        Enviar Cotización
+      </button>
+    </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  const typeRows = document.querySelectorAll('.type-row');
+  typeRows.forEach((row) => {
+    const deleteBtn = row.querySelector('.delete-btn');
+    const quantity = row.querySelector('.quantity');
+    const price = row.querySelector('.type-price');
+    const total = row.querySelector('.type-total');
+    const minusBtn = row.querySelector('.minus-btn');
+    const addBtn = row.querySelector('.add-btn');
+    if (minusBtn && quantity) {
+      minusBtn.addEventListener('click', () => {
+        const currentQuantity = parseInt(quantity.textContent || '0');
+        if (currentQuantity > 1) {
+          quantity.textContent = (currentQuantity - 1).toString();
+          calculateTotal(price, quantity, total);
+        }
+      });
+    }
+    if (addBtn && quantity) {
+      addBtn.addEventListener('click', () => {
+        const currentQuantity = parseInt(quantity.textContent || '0');
+        quantity.textContent = (currentQuantity + 1).toString();
+        calculateTotal(price, quantity, total);
+      });
+    }
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => {
+        row.remove();
+      });
+    }
+  });
+  const calculateTotal = (
+    price: Element | null,
+    quantity: Element | null,
+    total: Element | null
+  ) => {
+    if (total && price && quantity) {
+      total.textContent = `$ ${(
+        parseInt(price.getAttribute('data-price') || '0') *
+        parseInt(quantity.textContent || '0')
+      ).toString()}`;
+    }
+  };
+  const calculateTotalPlantsAndPrice = () => {
+    const totalQuantity = document.querySelectorAll('.type-row').length;
+    const spanQuantity = document.getElementById('total-quantity-plants');
+    if (spanQuantity) {
+      spanQuantity.textContent = `(${totalQuantity})`;
+    }
+    const typeRows = document.querySelectorAll('.type-row');
+    let totalPrice = 0;
+    typeRows.forEach((row) => {
+      const typeTotal = row.querySelector('.type-total');
+      if (typeTotal) {
+        totalPrice += parseInt(typeTotal.textContent?.split('$')[1] || '0');
+      }
+    });
+    const totalPricePlantsEl = document.getElementById('total-price-plants');
+    if (totalPricePlantsEl) {
+      totalPricePlantsEl.textContent = `$ ${totalPrice}`;
+    }
+  };
+  document.addEventListener('DOMContentLoaded', calculateTotalPlantsAndPrice);
+</script>

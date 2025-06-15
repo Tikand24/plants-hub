@@ -1,0 +1,59 @@
+---
+import CardPlant from './CardPlant.astro';
+import datos from '../assets/datos.json';
+import type { Product } from '../types/plants';
+
+const {data} = datos;
+const plants = (data ?? []) as Product[];
+const itemsPerPage = 9;
+const totalItems = plants.length;
+
+// Importar todas las imágenes una sola vez
+const images = import.meta.glob<{ default: ImageMetadata }>('../images/*.jpg', { eager: true });
+---
+
+<div class="container mx-auto">
+  <div id="plants-grid" class="grid grid-cols md:grid-cols-2 xl:grid-cols-3 gap-8">
+    {
+      plants.map((plant, index) => (
+        <div class={`plant-card ${index >= itemsPerPage ? 'hidden' : ''}`}>
+          <CardPlant {...plant} images={images} />
+        </div>
+      ))
+    }
+  </div>
+  {
+    totalItems > itemsPerPage && (
+      <div class="flex justify-center mt-8 pb-36">
+        <button 
+          id="load-more"
+          class="bg-button text-white px-6 py-3 rounded-lg hover:bg-button/50 transition-colors cursor-pointer"
+        >
+          Ver más
+        </button>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  let currentItems = 9;
+  const itemsPerPage = 9;
+  
+  document.getElementById('load-more')?.addEventListener('click', () => {
+    const cards = document.querySelectorAll('.plant-card.hidden');
+    const nextCards = Array.from(cards).slice(0, itemsPerPage);
+    
+    nextCards.forEach(card => {
+      card.classList.remove('hidden');
+    });
+    
+    currentItems += itemsPerPage;
+    
+    // Hide the button if no more cards to show
+    if (cards.length <= itemsPerPage) {
+      const button = document.getElementById('load-more');
+      if (button) button.style.display = 'none';
+    }
+  });
+</script>
