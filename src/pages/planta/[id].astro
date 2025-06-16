@@ -1,0 +1,33 @@
+---
+import "../../styles/global.css";
+import Layout from '../../layouts/Layout.astro';
+import datos from '../../assets/datos.json';
+import Image from 'astro/components/Image.astro';
+
+export async function getStaticPaths() {
+  const plants = datos.data;
+  return plants.map((plant) => ({
+    params: { id: plant._id },
+    props: { plant },
+  }));
+}
+
+const { plant } = Astro.props;
+
+const { medias, name, price, type, _id } = plant;
+
+// Obtener la primera imagen del array medias
+export const prerender = true;
+---
+
+<Layout title={`${plant.name} - Plants hub`}>
+  <div class="container mx-auto">
+    <div class="flex gap-4">
+      <div class="w-1/2">
+      </div>
+      <div class="w-1/2">
+        <h1 class="text-4xl font-bold">{plant.name}</h1>
+      </div>
+    </div>
+  </div>
+</Layout>
