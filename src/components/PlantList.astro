@@ -1,23 +1,20 @@
 ---
 import CardPlant from './CardPlant.astro';
-import datos from '../assets/datos.json';
-import type { Product } from '../types/plants';
+import { getCollection } from 'astro:content';
 
-const {data} = datos;
-const plants = (data ?? []) as Product[];
+const plants = await getCollection('plants');
 const itemsPerPage = 9;
 const totalItems = plants.length;
 
 // Importar todas las imágenes una sola vez
-const images = import.meta.glob<{ default: ImageMetadata }>('../images/*.jpg', { eager: true });
 ---
 
-<div class="container mx-auto">
+<div class="container mx-auto px-2 lg:px-0">
   <div id="plants-grid" class="grid grid-cols md:grid-cols-2 xl:grid-cols-3 gap-8">
     {
       plants.map((plant, index) => (
         <div class={`plant-card ${index >= itemsPerPage ? 'hidden' : ''}`}>
-          <CardPlant {...plant} images={images} />
+          <CardPlant {...plant.data} />
         </div>
       ))
     }

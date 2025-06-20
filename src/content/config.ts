@@ -1,7 +1,7 @@
 import { defineCollection, z } from 'astro:content';
 
 const plants = defineCollection({
-  schema: z.object({
+  schema: ({ image }) => z.object({
     _id: z.string(),
     name: z.string(),
     price: z.number(),
@@ -10,7 +10,7 @@ const plants = defineCollection({
     updatedAt: z.string(),
     medias: z.array(z.object({
       url: z.string(),
-      filename: z.string(),
+      filename: image(),
       _id: z.string(),
     })),
     type: z.array(z.object({
