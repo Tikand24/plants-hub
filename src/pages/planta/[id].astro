@@ -1,20 +1,22 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Image from 'astro/components/Image.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import logoFinal from '../../images/logofinal.jpg';
 
 export async function getStaticPaths() {
   const plants = await getCollection('plants');
   return plants.map((plant) => ({
     params: { id: plant.data._id },
-    props: { plant: plant.data },
+    props: { plant: plant },
   }));
 }
 
 const { plant } = Astro.props;
+const { data } = plant;
 
-const { medias, name, price, type, _id } = plant;
+const { medias, name, generalDescription, price, type, _id } = data;
+const { Content } = await render(plant);
 
 // Group type array into pairs
 const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
@@ -29,23 +31,23 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
 export const prerender = true;
 ---
 
-<Layout title={`${plant.name} - Plants hub`}>
+<Layout title={`${name} - Plants hub`}>
   <div class="container mx-auto px-2 lg:px-0">
-    <div class="flex flex-col lg:flex-row gap-4">
-      <div class="flex flex-col lg:flex-row gap-4 lg:w-1/2">
+    <article class="flex flex-col lg:flex-row gap-4">
+      <section class="flex flex-col lg:flex-row gap-4 lg:w-1/2">
         <div class="w-full lg:w-1/2 block lg:hidden">
-          <h1 class="text-2xl text-white font-semibold">{plant.name}</h1>
+          <h1 class="text-2xl text-white font-semibold">{name}</h1>
         </div>
         <div class="w-full">
           {
-            plant.medias.length > 0 ? (
+            medias.length > 0 ? (
               <Image
-                src={plant.medias[0].filename}
-                alt={plant.name}
+                src={medias[0].filename}
+                alt={name}
                 width={400}
                 height={300}
                 transition:name={`${_id}-img`}
-                class="w-full h-full max-h-[300px] lg:max-h-[50vh] object-contain rounded-xl"
+                class="w-full h-full max-h-[80vh] lg:max-h-[50vh] object-contain rounded-xl"
               />
             ) : (
               <Image
@@ -59,10 +61,12 @@ export const prerender = true;
             )
           }
         </div>
-      </div>
-      <div class="flex flex-col gap-4 mt-4 px-6 lg:px-0 lg:w-1/2 py-0 lg:py-10">
+      </section>
+      <main
+        class="flex flex-col gap-4 mt-4 px-6 lg:px-0 lg:w-1/2 py-0 lg:py-10"
+      >
         <div class="w-full hidden lg:block">
-          <h1 class="text-4xl font-semibold text-white">{plant.name}</h1>
+          <h1 class="text-4xl font-semibold text-white">{name}</h1>
         </div>
         <div class="w-full">
           <h3 class="text-accent text-4xl font-semibold">
@@ -78,9 +82,7 @@ export const prerender = true;
         </div>
         <div class="flex flex-col gap-2 lg:gap-4">
           <div class="w-full lg:w-1/2">
-            <h3 class="text-accent text-base font-medium">
-              Tipos de plantas
-            </h3>
+            <h3 class="text-accent text-base font-medium">Tipos de plantas</h3>
           </div>
           {
             groupedTypes.map((group: any) => (
@@ -102,46 +104,57 @@ export const prerender = true;
               </div>
             ))
           }
-          <div class="w-full lg:w-1/2 mt-0 lg:mt-4 flex justify-end lg:justify-start">
+          <div
+            class="w-full lg:w-1/2 mt-0 lg:mt-4 flex justify-end lg:justify-start"
+          >
             <button
               class="quote-btn text-base px-4 py-2 text-white bg-button rounded-xl border-primary shadow hover:bg-button/50 cursor-pointer"
-              data-id={`${_id}`}
-              >Cotizar</button
+              data-id={`${_id}`}>Cotizar</button
             >
           </div>
+          <div class="w-full prose prose-neutral lg:prose-lg dark:prose-invert">
+            <p>{generalDescription}</p>
+          </div>
         </div>
-        
-      </div>
-    </div>
+      </main>
+    </article>
+    <section class="flex justify-center mt-10 lg:mt-20">
+      <article class="prose prose-neutral lg:prose-lg dark:prose-invert max-w-3xl">
+        <Content />
+      </article>
+    </section>
   </div>
 </Layout>
 <script>
-  const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
-  const btnsQuote = document.querySelectorAll(".quote-btn");
-  
+  const quotationItems = JSON.parse(
+    localStorage.getItem('quotationItems') || '[]'
+  );
+  const btnsQuote = document.querySelectorAll('.quote-btn');
 
-  btnsQuote.forEach((btn)=>{
-    if(quotationItems.includes(btn.getAttribute('data-id'))){
+  btnsQuote.forEach((btn) => {
+    if (quotationItems.includes(btn.getAttribute('data-id'))) {
       btn.textContent = 'Agregado';
-        btn.classList.remove('bg-button');
-        btn.classList.add('bg-green-500');
-        btn.classList.add('hover:bg-green-600');
+      btn.classList.remove('bg-button');
+      btn.classList.add('bg-green-500');
+      btn.classList.add('hover:bg-green-600');
     }
-    btn.addEventListener("click",()=>{
-      let quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    btn.addEventListener('click', () => {
+      let quotationItems = JSON.parse(
+        localStorage.getItem('quotationItems') || '[]'
+      );
       const _id = btn.getAttribute('data-id');
-      if(quotationItems.includes(_id)){
+      if (quotationItems.includes(_id)) {
         quotationItems.splice(quotationItems.indexOf(_id), 1);
-      }else{
+      } else {
         quotationItems.push(_id);
       }
       localStorage.setItem('quotationItems', JSON.stringify(quotationItems));
-      if(quotationItems.includes(_id)){
+      if (quotationItems.includes(_id)) {
         btn.textContent = 'Agregado';
         btn.classList.remove('bg-button');
         btn.classList.add('bg-green-500');
         btn.classList.add('hover:bg-green-600');
-      }else{
+      } else {
         btn.textContent = 'Cotizar';
         btn.classList.remove('bg-green-500', 'hover:bg-green-600');
         btn.classList.add('bg-button');

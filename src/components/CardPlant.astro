@@ -104,6 +104,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
 </div>
 
 <script>
+  const loadButtonsActions = () => {
   const btnsQuote = document.querySelectorAll(".quote-btn");
   btnsQuote.forEach((btn)=>{
     btn.addEventListener("click",()=>{
@@ -138,6 +139,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
       updateQuotationCount();
     });
   })
+}
 
   // Verificar el estado inicial de los botones
   function checkInitialButtonState() {
@@ -159,13 +161,14 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
   function updateQuotationCount() {
     const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
     const countElement = document.querySelector('.quotation-count');
+    console.log(quotationItems.length);
     if (countElement) {
       countElement.textContent = quotationItems.length;
     }
   }
 
-  // Initialize count and button states on page load
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("astro:page-load", () => {
+    loadButtonsActions();
     updateQuotationCount();
     checkInitialButtonState();
   });

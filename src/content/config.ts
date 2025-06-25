@@ -8,6 +8,7 @@ const plants = defineCollection({
     deleted: z.boolean(),
     createdAt: z.string(),
     updatedAt: z.string(),
+    generalDescription: z.string().optional().nullable(),
     medias: z.array(z.object({
       url: z.string(),
       filename: image(),

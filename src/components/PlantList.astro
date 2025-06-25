@@ -2,7 +2,16 @@
 import CardPlant from './CardPlant.astro';
 import { getCollection } from 'astro:content';
 
-const plants = await getCollection('plants');
+const allPlants = await getCollection('plants');
+// Ordenar plantas: primero las que tienen medias, luego las que no
+const plants = allPlants.sort((a, b) => {
+  const aHasMedias = a.data.medias && Array.isArray(a.data.medias) && a.data.medias.length > 0;
+  const bHasMedias = b.data.medias && Array.isArray(b.data.medias) && b.data.medias.length > 0;
+  
+  if (aHasMedias && !bHasMedias) return -1; // a va primero
+  if (!aHasMedias && bHasMedias) return 1;  // b va primero
+  return 0; // ambos tienen el mismo estado, mantener orden original
+});
 const itemsPerPage = 9;
 const totalItems = plants.length;
 
@@ -34,6 +43,7 @@ const totalItems = plants.length;
 </div>
 
 <script>
+  const loadData = () => {
   let currentItems = 9;
   const itemsPerPage = 9;
   
@@ -53,4 +63,7 @@ const totalItems = plants.length;
       if (button) button.style.display = 'none';
     }
   });
+  }
+  document.addEventListener("astro:page-load", loadData);
+  loadData();
 </script>

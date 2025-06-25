@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import datos from '../assets/datos.json';
 
 const { url } = Astro.request;
-
+console.log(url);
+console.log(url.split('?'));
 const ids: string[] = url.split('?')[1].split('=')[1].split(',') || [];
 const plants = datos.data.filter((plant) => ids.includes(plant._id));
 ---

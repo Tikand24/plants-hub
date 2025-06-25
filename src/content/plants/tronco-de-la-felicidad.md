@@ -5,6 +5,7 @@ price: 15000
 deleted: false
 createdAt: "2023-08-25T15:53:39.191Z"
 updatedAt: "2024-06-28T17:08:43.815Z"
+generalDescription: "El Tronco de la felicidad es una planta ornamental única que combina la elegancia de un tronco decorativo con el verdor de hojas exuberantes. Su diseño especial la convierte en un elemento decorativo distintivo para interiores y oficinas."
 medias:
   - url: "https://tikand24.s3.us-east-1.amazonaws.com/vivero/d866a4c5-1208-4676-b83c-8bcb23cd97a6?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA6GBMDSSXFGK6XD4M%2F20250411%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250411T032337Z&X-Amz-Expires=3600&X-Amz-Signature=b2ec28bc2ebd7fde2fd016f7abe91717dba23f5a6c7d33c9f4dc815beb05c9e4&X-Amz-SignedHeaders=host&x-id=GetObject"
     filename: "./images/d866a4c5-1208-4676-b83c-8bcb23cd97a6.jpg"
@@ -34,4 +35,50 @@ type:
     _id: "666dba9256370a90ac703b4e"
     clients: []
     routes: []
---- 
+---
+
+## Características principales
+
+El Tronco de la felicidad es una composición ornamental que combina un tronco decorativo natural o artificial con plantas vivas que crecen desde su parte superior. El tronco puede ser de diferentes materiales como bambú, madera tratada o fibra natural, y las plantas suelen ser especies de follaje verde como musgo, helechos o pequeñas plantas tropicales.
+
+Esta creación única ofrece una combinación perfecta entre elementos naturales y diseño decorativo, creando un punto focal atractivo en cualquier espacio. La altura y el volumen varían según el tamaño del tronco y las plantas seleccionadas.
+
+## Cuidados básicos
+
+**Luz**: Prefiere luz indirecta brillante. Evita la exposición directa al sol que puede secar las plantas y dañar el tronco.
+
+**Riego**: Moderado. Riega las plantas en la parte superior del tronco cuando el sustrato esté ligeramente seco. Evita mojar el tronco directamente.
+
+**Humedad**: Requiere humedad ambiental moderada a alta. Rocía las plantas ocasionalmente para mantener la humedad.
+
+**Temperatura**: Prospera en temperaturas entre 18-25°C. Evita corrientes de aire frío y cambios bruscos de temperatura.
+
+**Limpieza**: Limpia el tronco ocasionalmente con un paño húmedo para mantener su aspecto natural.
+
+**Mantenimiento**: Revisa regularmente las plantas y reemplaza aquellas que no estén saludables para mantener el aspecto general.
+
+## Beneficios
+
+**Decorativo único**: Su diseño especial lo convierte en un elemento decorativo distintivo y conversacional.
+
+**Purificación del aire**: Las plantas vivas ayudan a mejorar la calidad del aire interior.
+
+**Efecto relajante**: La combinación de elementos naturales tiene un efecto calmante y mejora el bienestar emocional.
+
+**Versátil**: Se adapta a diferentes estilos de decoración, desde moderno hasta rústico.
+
+**Bajo mantenimiento**: Una vez establecido, requiere cuidados mínimos comparado con otras plantas de interior.
+
+## Problemas comunes
+
+**Plantas secas**: Indica falta de riego o humedad. Aumenta la frecuencia de riego y la humedad ambiental.
+
+**Tronco deteriorado**: Puede ser por exceso de humedad o falta de limpieza. Mantén el tronco seco y límpialo regularmente.
+
+**Plagas en las plantas**: Pueden aparecer cochinillas o araña roja. Trata con jabón insecticida específico para plantas.
+
+**Desbalance visual**: Si algunas plantas crecen más que otras, pódalas para mantener la armonía del diseño.
+
+**Polvo acumulado**: Limpia regularmente tanto el tronco como las plantas para mantener el aspecto saludable.
+
+**Plantas muertas**: Reemplaza inmediatamente las plantas que no se recuperen para mantener la belleza del conjunto. 
