@@ -3,9 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import datos from '../assets/datos.json';
 
 const { url } = Astro.request;
-console.log(url);
-console.log(url.split('?'));
-const ids: string[] = url.split('?')[1].split('=')[1].split(',') || [];
+let ids: string[] = [];
+if(url.split('?').length > 1) {
+  ids = url.split('?')[1].split('=')[1].split(',') || [];
+}
 const plants = datos.data.filter((plant) => ids.includes(plant._id));
 ---
 
@@ -162,14 +163,19 @@ const plants = datos.data.filter((plant) => ids.includes(plant._id));
             <li>Detalles de colores, tamaños y otros por contacto via whatsapp.</li>
           </ul>
         </div>
-        <div class="mt-4 lg:mt-8 flex justify-end">
+        <form action="" class="flex flex-col gap-4">
+          <input type="text" name="name" placeholder="Nombre" class="bg-secondary rounded-xl px-2 py-3 text-white w-full lg:w-2xl" />
+          <input type="text" name="phone" placeholder="Teléfono / WhatsApp" class="bg-secondary rounded-xl px-2 py-3 text-white w-full lg:w-2xl" />
+          <div class="flex justify-end">
           <button
+            type="submit"
             id="submit-quotation"
             class="bg-button text-white text-sm lg:text-xl font-semibold px-4 py-2 lg:px-8 lg:py-4 cursor-pointer rounded-xl hover:bg-button/80"
           >
-            Enviar Cotización
-          </button>
-        </div>
+              Enviar Cotización
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </main>
