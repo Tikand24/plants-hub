@@ -13,11 +13,12 @@ const allPlants = await getCollection('plants');
         class="bg-secondary rounded-xl px-2 py-3 text-white w-full lg:w-2xl"
         placeholder="Buscar..."
         list="plants"
+        id="plant-search"
       />
       <datalist id="plants">
         {
           allPlants.map((plant) => (
-            <option value={plant.data.name} data-id={plant.id}>{plant.data.name}</option>
+            <option value={plant.data.name} data-id={plant.data._id}>{plant.data.name}</option>
           ))
         }
       </datalist>
@@ -43,6 +44,21 @@ const allPlants = await getCollection('plants');
     }
   }
 
+  // Function to handle plant search and redirect
+  function handlePlantSearch() {
+    const searchInput = document.getElementById('plant-search') as HTMLInputElement;
+    const selectedPlantName = searchInput.value;
+    
+    if (selectedPlantName) {
+      // Find the plant by name
+      const plantOption = document.querySelector(`option[value="${selectedPlantName}"]`) as HTMLOptionElement;
+      if (plantOption && plantOption.dataset.id) {
+        // Redirect to plant detail page
+        window.location.href = `/planta/${plantOption.dataset.id}`;
+      }
+    }
+  }
+
   // Function to initialize the component
   function initializeNav() {
     // Update count immediately
@@ -54,6 +70,18 @@ const allPlants = await getCollection('plants');
       // Remove existing listeners to prevent duplicates
       buttonRedirectQuotation.removeEventListener('click', handleQuotationClick);
       buttonRedirectQuotation.addEventListener('click', handleQuotationClick);
+    }
+
+    // Set up plant search functionality
+    const plantSearch = document.getElementById('plant-search');
+    if (plantSearch) {
+      // Remove existing listeners to prevent duplicates
+      plantSearch.removeEventListener('input', handlePlantSearch);
+      plantSearch.removeEventListener('change', handlePlantSearch);
+      
+      // Add listeners for both input and change events
+      plantSearch.addEventListener('input', handlePlantSearch);
+      plantSearch.addEventListener('change', handlePlantSearch);
     }
   }
 

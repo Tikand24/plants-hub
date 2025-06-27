@@ -4,7 +4,7 @@ import type { Product } from '../types/plants';
 import logoFinal from '../images/logofinal.jpg';
 
 
-const { medias, name, price, type, images, _id } = Astro.props;
+const { medias, name, price, type, images, _id, slug } = Astro.props;
 
 // Obtener la primera imagen del array medias
 let firstImage = null;
@@ -25,7 +25,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
 
 <div class="relative h-full max-h-[40vh]">
   <div class="h-full">
-    <a href={`/planta/${_id}`}>
+    <a href={`/planta/${slug}`}>
     {
       firstImage ? (
         <Image
@@ -34,7 +34,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
           alt={name}
           width={400}
           height={300}
-          transition:name={`${_id}-img`}
+          transition:name={`${slug}-img`}
         />
       ) : (
         <Image
@@ -43,7 +43,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
           alt={name}
           width={400}
           height={300}
-          transition:name={`${_id}-img`}
+          transition:name={`${slug}-img`}
         />
       )
     }
@@ -54,7 +54,7 @@ const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
   >
     <div class="flex flex-col justify-between h-full py-2 px-4 gap-2">
       <div>
-        <a href={`/planta/${_id}`} class="text-white font-semibold text-2xl">{name}</a>
+        <a href={`/planta/${slug}`} class="text-white font-semibold text-2xl">{name}</a>
       </div>
       <div>
         <h3 class="text-accent text-xl">

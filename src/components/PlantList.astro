@@ -23,7 +23,7 @@ const totalItems = plants.length;
     {
       plants.map((plant, index) => (
         <div class={`plant-card ${index >= itemsPerPage ? 'hidden' : ''}`}>
-          <CardPlant {...plant.data} />
+          <CardPlant {...plant.data} slug={plant.slug} />
         </div>
       ))
     }
