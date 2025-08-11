@@ -1,0 +1,14 @@
+---
+interface Props {
+  type: 'Organization' | 'WebSite' | 'BreadcrumbList' | 'Product';
+  data: any;
+}
+
+const { type, data } = Astro.props;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": type,
+  ...data
+})} />

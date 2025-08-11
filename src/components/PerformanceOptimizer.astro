@@ -1,0 +1,55 @@
+---
+// Performance optimization scripts and meta tags
+---
+
+<!-- Preload critical resources -->
+<link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/images/hero-image.jpg" as="image" />
+
+<!-- DNS prefetch for external domains -->
+<link rel="dns-prefetch" href="//www.google-analytics.com" />
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+<!-- Resource hints -->
+<link rel="preconnect" href="https://www.google-analytics.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Performance monitoring -->
+<script>
+  // Performance monitoring
+  if ('performance' in window) {
+    window.addEventListener('load', () => {
+      const perfData = performance.getEntriesByType('navigation')[0];
+      const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+      
+      // Send to analytics if available
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'timing_complete', {
+          name: 'load',
+          value: Math.round(loadTime)
+        });
+      }
+    });
+  }
+  
+  // Lazy loading for images
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.remove('lazy');
+          observer.unobserve(img);
+        }
+      });
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const lazyImages = document.querySelectorAll('img[data-src]');
+      lazyImages.forEach(img => imageObserver.observe(img));
+    });
+  }
+</script>

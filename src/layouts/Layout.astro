@@ -1,25 +1,181 @@
 ---
 import Nav from '../components/Nav.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import PerformanceOptimizer from '../components/PerformanceOptimizer.astro';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
+	canonicalURL?: string;
 }
 
-const { title } = Astro.props;
+const { 
+	title, 
+	description = "Alto Jardin - Vivero especializado en plantas ornamentales, suculentas, palmas y flores. Encuentra la mejor selección de plantas para tu jardín y hogar. Entrega a domicilio disponible.",
+	image = "https://alto-jardin.vercel.app/og-image.jpg",
+	canonicalURL = Astro.url.href
+} = Astro.props;
+
+const siteName = "Alto Jardin";
+const siteURL = "https://alto-jardin.vercel.app";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<!-- Primary Meta Tags -->
 		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content="vivero, plantas, suculentas, palmas, flores, jardín, plantas ornamentales, plantas de interior, plantas de exterior, jardinería, Colombia" />
+		<meta name="author" content="Alto Jardin" />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="Spanish" />
+		<meta name="revisit-after" content="7 days" />
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="es_CO" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+		
+		<!-- Local Business Schema -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "GardenCenter",
+			"name": "Alto Jardin",
+			"description": "Vivero especializado en plantas ornamentales, suculentas, palmas y flores",
+			"url": siteURL,
+			"logo": `${siteURL}/logo.png`,
+			"image": image,
+			"telephone": "+57-XXX-XXX-XXXX",
+			"email": "contacto@altojardin.com",
+			"address": {
+				"@type": "PostalAddress",
+				"addressCountry": "CO",
+				"addressLocality": "Colombia"
+			},
+			"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "4.5709",
+				"longitude": "-74.2973"
+			},
+			"openingHours": "Mo-Sa 08:00-18:00",
+			"priceRange": "$$",
+			"currenciesAccepted": "COP",
+			"paymentAccepted": "Cash, Credit Card",
+			"hasOfferCatalog": {
+				"@type": "OfferCatalog",
+				"name": "Catálogo de Plantas",
+				"itemListElement": [
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Suculentas"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Palmas"
+						}
+					},
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "Product",
+							"name": "Plantas Ornamentales"
+						}
+					}
+				]
+			},
+			"sameAs": [
+				"https://www.facebook.com/altojardin",
+				"https://www.instagram.com/altojardin"
+			]
+		})} />
+		
+		<!-- Website Schema -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": siteName,
+			"url": siteURL,
+			"description": "Vivero especializado en plantas ornamentales, suculentas, palmas y flores en Colombia",
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": `${siteURL}/search?q={search_term_string}`,
+				"query-input": "required name=search_term_string"
+			}
+		})} />
+		
+		<!-- Organization Schema -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": siteName,
+			"url": siteURL,
+			"logo": `${siteURL}/logo.png`,
+			"description": "Vivero especializado en plantas ornamentales, suculentas, palmas y flores",
+			"address": {
+				"@type": "PostalAddress",
+				"addressCountry": "CO",
+				"addressLocality": "Colombia"
+			},
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"telephone": "+57-XXX-XXX-XXXX",
+				"contactType": "customer service",
+				"availableLanguage": "Spanish"
+			},
+			"sameAs": [
+				"https://www.facebook.com/altojardin",
+				"https://www.instagram.com/altojardin"
+			]
+		})} />
+		
+		<!-- Web App Manifest -->
+		<meta name="theme-color" content="#4F46E5" />
+		<meta name="msapplication-TileColor" content="#4F46E5" />
+		
+		<!-- Preconnect to external domains -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		
+		<!-- Astro Generator -->
+		<meta name="generator" content={Astro.generator} />
+		
 		<ClientRouter />
+		<GoogleAnalytics />
+		<PerformanceOptimizer />
 	</head>
 	<body>
 		<Nav/>
