@@ -17,9 +17,4 @@ export default defineConfig({
     },
     maxDuration: 8,
   }),
-  
-  // SEO optimizations
-  experimental: {
-    assets: true,
-  },
 });

@@ -1,6 +1,5 @@
 ---
 import Nav from '../components/Nav.astro';
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import PerformanceOptimizer from '../components/PerformanceOptimizer.astro';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
@@ -174,7 +173,6 @@ const siteURL = "https://alto-jardin.vercel.app";
 		<meta name="generator" content={Astro.generator} />
 		
 		<ClientRouter />
-		<GoogleAnalytics />
 		<PerformanceOptimizer />
 	</head>
 	<body>

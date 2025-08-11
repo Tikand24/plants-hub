@@ -1,10 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import type { Product } from '../types/plants';
 import logoFinal from '../images/logofinal.jpg';
 
 
-const { medias, name, price, type, images, _id, slug } = Astro.props;
+const { medias, name, price, type, _id, slug } = Astro.props;
 
 // Obtener la primera imagen del array medias
 let firstImage = null;

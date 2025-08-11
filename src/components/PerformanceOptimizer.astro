@@ -18,21 +18,6 @@
 
 <!-- Performance monitoring -->
 <script>
-  // Performance monitoring
-  if ('performance' in window) {
-    window.addEventListener('load', () => {
-      const perfData = performance.getEntriesByType('navigation')[0];
-      const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
-      
-      // Send to analytics if available
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'timing_complete', {
-          name: 'load',
-          value: Math.round(loadTime)
-        });
-      }
-    });
-  }
   
   // Lazy loading for images
   if ('IntersectionObserver' in window) {
@@ -40,7 +25,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const img = entry.target;
-          img.src = img.dataset.src;
+          img.setAttribute('src', img.getAttribute('data-src') || '');
           img.classList.remove('lazy');
           observer.unobserve(img);
         }
