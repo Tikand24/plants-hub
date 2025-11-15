@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import image1 from '../assets/banner-1.jpg';
+import image2 from '../assets/banner-2.jpg';
+import image3 from '../assets/banner-3.jpg';
+import image4 from '../assets/banner-4.jpg';
+import image5 from '../assets/banner-5.jpg';
+import image6 from '../assets/banner-6.jpg';
+---
+<style is:global>
+  
+  .swiper-pagination-bullet-active {
+    background: var(--color-alto-jardin-2) !important;
+  }
+  
+</style>
+<div class="swiper w-full h-full">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    <div class="swiper-slide">
+      <Image
+        src={image1}
+        alt="Alto Jardin banner 1"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+        <h2 class="text-shadow-lg text-5xl text-white font-extrabold">Envios a toda colombia</h2>
+        <p class="bg-alto-jardin-2/80 px-4 rounded-2xl text-xl text-altojardin-1 font-light">Ubicados en Fusagasuga, Cundinamarca. Envios y recogida</p>
+        <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <Image
+        src={image2}
+        alt="Alto Jardin banner 2"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+        <h2 class="text-shadow-lg text-5xl text-white font-extrabold">Buganvillas/Veraneras</h2>
+        <p class="bg-alto-jardin-2/80 px-4 rounded-2xl text-xl text-altojardin-1  font-light">Juanas, Patricias, Bicolor, en vara y en todas las bolsas 28, 35, 40 y semillero</p>
+        <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <Image
+        src={image3}
+        alt="Alto Jardin banner 3"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+        <h2 class="text-shadow-lg text-5xl text-white font-extrabold">Plantas de flor</h2>
+        <p class="bg-alto-jardin-2/80 px-4 rounded-2xl text-xl text-altojardin-1  font-light">Todo tipo de plantas de flor, orquideas, rosas, anturios y mas</p>
+        <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <Image
+        src={image4}
+        alt="Alto Jardin banner 4"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+       <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <Image
+        src={image5}
+        alt="Alto Jardin banner 5"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+       <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <Image
+        src={image6}
+        alt="Alto Jardin banner 6"
+        class="object-cover aspect-video w-full h-full"
+      />
+      <div class="absolute top-0 left-0 h-full w-full flex flex-col items-center justify-center gap-4">
+       <a href="/solicitar-cotizacion" class="rounded-3xl h-10 px-4 bg-alto-jardin-3 hover:bg-alto-jardin-3/90 text-alto-jardin-1 flex items-center justify-center text-sm font-bold">Solicitar Cotización</a>
+      </div>
+    </div>
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div
+    class="btn-prev-swiper-banner bg-alto-jardin-2 absolute left-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer rounded-2xl opacity-70 hover:opacity-100 transition-opacity"
+  >
+    <svg
+      width="64px"
+      height="64px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+        <path
+          d="M15 19L9 12L10.5 10.25M15 5L13 7.33333"
+          stroke="#0e1b13"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </g></svg
+    >
+  </div>
+  <div
+    class="btn-next-swiper-banner bg-alto-jardin-2 absolute right-4 top-1/2 transform -translate-y-1/2 z-10 cursor-pointer rounded-2xl opacity-70 hover:opacity-100 transition-opacity"
+  >
+    <svg
+      width="64px"
+      height="64px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+        <path
+          d="M9 5L15 12L13.5 13.75M9 19L11 16.6667"
+          stroke="#0e1b13"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </g></svg
+    >
+  </div>
+
+  <!-- If we need scrollbar -->
+  <div class="swiper-scrollbar"></div>
+</div>
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+
+  Swiper.use([Navigation, Pagination, Autoplay]);
+
+  const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    // Navigation arrows
+    navigation: {
+      nextEl: '.btn-next-swiper-banner',
+      prevEl: '.btn-prev-swiper-banner',
+    },
+  });
+</script>

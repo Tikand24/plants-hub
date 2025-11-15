@@ -1,0 +1,24 @@
+---
+import CardPlantNew from './CardPlantNew.astro';
+
+interface Props{
+  category: string;
+  plants?: any[];
+}
+const { category, plants } = Astro.props;
+---
+<section class="flex flex-col gap-8">
+  <h3 class="text-3xl font-semibold text-alto-jardin-1">
+    {category}
+  </h3>
+  {(plants && plants.length > 0) && (<div class="grid grid-cols md:grid-cols-2 xl:grid-cols-4 gap-4">
+    {
+      plants.map((plant) => (
+        <div class={`plant-card`}>
+          <CardPlantNew {...plant.data} slug={plant.slug} />
+        </div>
+      ))
+    }
+  </div>)}
+  
+</section>

@@ -2,13 +2,18 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-primary: #14627D; 
+  --color-primary: #ffffff; 
   --color-secondary: #2D819C;
   --color-accent: #c0faff;
   --color-background: #F2F9FC;
   --color-button: #177892;
   --color-glass: rgba(255, 255, 255, 0.15);
   --color-glass-1: rgba(255, 255, 255, 0.3);
+  --color-alto-jardin-1: #0e1b13;
+  --color-alto-jardin-2: #e7f3ec;
+  --color-alto-jardin-3: #14b755;
+  --color-alto-jardin-4: #4e976b;
+  --color-alto-jardin-5: #19e519;
   
 }
 

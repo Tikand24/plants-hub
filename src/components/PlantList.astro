@@ -1,5 +1,6 @@
 ---
 import CardPlant from './CardPlant.astro';
+import CardPlantNew from './CardPlantNew.astro';
 import { getCollection } from 'astro:content';
 
 const allPlants = await getCollection('plants');
@@ -19,11 +20,11 @@ const totalItems = plants.length;
 ---
 
 <div class="container mx-auto px-2 lg:px-0">
-  <div id="plants-grid" class="grid grid-cols md:grid-cols-2 xl:grid-cols-3 gap-8">
+  <div id="plants-grid" class="grid grid-cols md:grid-cols-2 xl:grid-cols-4 gap-8">
     {
       plants.map((plant, index) => (
         <div class={`plant-card ${index >= itemsPerPage ? 'hidden' : ''}`}>
-          <CardPlant {...plant.data} slug={plant.slug} />
+          <CardPlantNew {...plant.data} slug={plant.slug} />
         </div>
       ))
     }
@@ -33,7 +34,7 @@ const totalItems = plants.length;
       <div class="flex justify-center mt-8 pb-36">
         <button 
           id="load-more"
-          class="bg-button text-white px-6 py-3 rounded-lg hover:bg-button/50 transition-colors cursor-pointer"
+          class="text-alto-jardin-1 bg-alto-jardin-3 px-6 py-3 rounded-lg hover:bg-alto-jardin-3/80 transition-colors cursor-pointer"
         >
           Ver más
         </button>

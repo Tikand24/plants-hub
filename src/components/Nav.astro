@@ -1,43 +1,138 @@
 ---
 import { getCollection } from 'astro:content';
+import imgIcon from '../assets/logomain.png';
+import { Image } from 'astro:assets';
 
-const allPlants = await getCollection('plants'); 
-
+const allPlants = await getCollection('plants');
 ---
-<section class="container mx-auto px-2 lg:px-0">
-  <div class="flex flex-col lg:flex-row justify-between items-center py-5 gap-2 lg:gap-10">
-    <div class="flex flex-row gap-2 lg:gap-4 justify-center items-center">
-      <a href="/" class="text-lg lg:text-4xl font-bold text-white whitespace-nowrap">Alto Jardin</a>
-      <input
-        type="text"
-        class="bg-secondary rounded-xl px-2 py-3 text-white w-full lg:w-2xl"
-        placeholder="Buscar..."
-        list="plants"
-        id="plant-search"
+
+<header class="px-8 lg:px-20 py-3 lg:py-4 border-b border-gray-300">
+  <div class="flex flex-col lg:flex-row justify-between items-center">
+    <div class="flex flex-row gap-4">
+      <Image
+        src={imgIcon}
+        alt="Alto Jardin Logo"
+        width={150}
+        height={25}
+        class="h-6 w-auto"
       />
-      <datalist id="plants">
-        {
-          allPlants.map((plant) => (
-            <option value={plant.data.name} data-id={plant.data._id}>{plant.data.name}</option>
-          ))
-        }
-      </datalist>
+      <h1 class="text-lg font-bold text-alto-jardin-1">Alto Jardin</h1>
+
+      <nav>
+        <ul class="flex flex-row gap-6 text-md lg:text-lg font-medium">
+          <li>
+            <a
+              href="/"
+              class="text-alto-jardin-1 hover:text-alto-jardin-4 transition-colors"
+              >Inicio</a
+            >
+          </li>
+          <li>
+            <a
+              href="/listado-plantas"
+              class="text-alto-jardin-1 hover:text-alto-jardin-4 transition-colors"
+              >Plantas</a
+            >
+          </li>
+          <li>
+            <a
+              href="/plantas"
+              class="text-alto-jardin-1 hover:text-alto-jardin-4 transition-colors"
+              >Contacto</a
+            >
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="flex gap-2 lg:gap-4 w-full lg:w-fit justify-end lg:justify-center items-center">
-      <a href="" class="bg-secondary text-white text-sm lg:text-xl font-semibold px-2 py-1 lg:px-8 lg:py-4 cursor-pointer rounded-xl "
-        >Contacto</a
-      >
-      <a href="/solicitar-cotizacion" id="button-redirect-quotation" class="bg-button text-white text-sm lg:text-xl font-semibold px-2 py-1 lg:px-8 lg:py-4 cursor-pointer rounded-xl w-fit relative"
-        >Solicitar cotizacion
-        <span class="quotation-count absolute -top-2 -right-2 bg-red-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center">0</span>
-      </a>
+    <div class="flex flex-row gap-4 items-center">
+      <div class="flex items-center gap-2">
+        <div class="flex gap-2 items-center group">
+          <input
+            type="text"
+            class="rounded-xl px-2 py-3 text-alto-jardin-1 border border-gray-300 w-full lg:w-2xl"
+            placeholder="Buscar..."
+            list="plants"
+            id="plant-search"
+          />
+          <datalist id="plants">
+            {
+              allPlants.map((plant) => (
+                <option value={plant.data.name} data-id={plant.data._id} data-slug={plant.slug}>
+                  {plant.data.name}
+                </option>
+              ))
+            }
+          </datalist>
+        <a class="bg-alto-jardin-2 p-3 rounded-2xl " href="#">
+          <svg
+            width="24px"
+            height="24px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+              <path
+                d="M18.5 18.5L22 22"
+                stroke="#0e1b13"
+                stroke-width="1.5"
+                stroke-linecap="round"></path>
+              <path
+                d="M6.75 3.27093C8.14732 2.46262 9.76964 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5C2 9.76964 2.46262 8.14732 3.27093 6.75"
+                stroke="#0e1b13"
+                stroke-width="1.5"
+                stroke-linecap="round"></path>
+            </g></svg
+          >
+        </a>
+        </div>
+        <a
+          class="bg-alto-jardin-2 p-3 rounded-2xl relative"
+          href="/solicitar-cotizacion"
+          id="button-redirect-quotation"
+        >
+          <svg
+            width="24px"
+            height="24px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            ><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier">
+              <path
+                d="M7.5 18C8.32843 18 9 18.6716 9 19.5C9 20.3284 8.32843 21 7.5 21C6.67157 21 6 20.3284 6 19.5C6 18.6716 6.67157 18 7.5 18Z"
+                stroke="#0e1b13"
+                stroke-width="1.5"></path>
+              <path
+                d="M16.5 18.0001C17.3284 18.0001 18 18.6716 18 19.5001C18 20.3285 17.3284 21.0001 16.5 21.0001C15.6716 21.0001 15 20.3285 15 19.5001C15 18.6716 15.6716 18.0001 16.5 18.0001Z"
+                stroke="#0e1b13"
+                stroke-width="1.5"></path>
+              <path
+                d="M2 3L2.26121 3.09184C3.5628 3.54945 4.2136 3.77826 4.58584 4.32298C4.95808 4.86771 4.95808 5.59126 4.95808 7.03836V9.76C4.95808 12.7016 5.02132 13.6723 5.88772 14.5862C6.75412 15.5 8.14857 15.5 10.9375 15.5H12M16.2404 15.5C17.8014 15.5 18.5819 15.5 19.1336 15.0504C19.6853 14.6008 19.8429 13.8364 20.158 12.3075L20.6578 9.88275C21.0049 8.14369 21.1784 7.27417 20.7345 6.69708C20.2906 6.12 18.7738 6.12 17.0888 6.12H11.0235M4.95808 6.12H7"
+                stroke="#0e1b13"
+                stroke-width="1.5"
+                stroke-linecap="round"></path>
+            </g></svg
+          >
+          <span
+          class="quotation-count absolute -top-2 -right-2 bg-red-500 text-white text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center"
+          >0</span
+        >
+        </a>
+      </div>
     </div>
   </div>
-</section>
+</header>
 
 <script>
   function updateQuotationCount() {
-    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const quotationItems = JSON.parse(
+      localStorage.getItem('quotationItems') || '[]'
+    );
     const countElement = document.querySelector('.quotation-count');
     if (countElement) {
       countElement.textContent = quotationItems.length;
@@ -46,15 +141,19 @@ const allPlants = await getCollection('plants');
 
   // Function to handle plant search and redirect
   function handlePlantSearch() {
-    const searchInput = document.getElementById('plant-search') as HTMLInputElement;
+    const searchInput = document.getElementById(
+      'plant-search'
+    ) as HTMLInputElement;
     const selectedPlantName = searchInput.value;
-    
+
     if (selectedPlantName) {
       // Find the plant by name
-      const plantOption = document.querySelector(`option[value="${selectedPlantName}"]`) as HTMLOptionElement;
-      if (plantOption && plantOption.dataset.id) {
+      const plantOption = document.querySelector(
+        `option[value="${selectedPlantName}"]`
+      ) as HTMLOptionElement;
+      if (plantOption && plantOption.dataset.slug) {
         // Redirect to plant detail page
-        window.location.href = `/planta/${plantOption.dataset.id}`;
+        window.location.href = `/planta/${plantOption.dataset.slug}`;
       }
     }
   }
@@ -65,10 +164,15 @@ const allPlants = await getCollection('plants');
     updateQuotationCount();
 
     // Set up event listeners
-    const buttonRedirectQuotation = document.getElementById('button-redirect-quotation');
+    const buttonRedirectQuotation = document.getElementById(
+      'button-redirect-quotation'
+    );
     if (buttonRedirectQuotation) {
       // Remove existing listeners to prevent duplicates
-      buttonRedirectQuotation.removeEventListener('click', handleQuotationClick);
+      buttonRedirectQuotation.removeEventListener(
+        'click',
+        handleQuotationClick
+      );
       buttonRedirectQuotation.addEventListener('click', handleQuotationClick);
     }
 
@@ -78,7 +182,7 @@ const allPlants = await getCollection('plants');
       // Remove existing listeners to prevent duplicates
       plantSearch.removeEventListener('input', handlePlantSearch);
       plantSearch.removeEventListener('change', handlePlantSearch);
-      
+
       // Add listeners for both input and change events
       plantSearch.addEventListener('input', handlePlantSearch);
       plantSearch.addEventListener('change', handlePlantSearch);
@@ -86,9 +190,14 @@ const allPlants = await getCollection('plants');
   }
 
   function handleQuotationClick(event: Event) {
-    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const quotationItems = JSON.parse(
+      localStorage.getItem('quotationItems') || '[]'
+    );
     if (quotationItems.length > 0) {
-      (event.target as HTMLAnchorElement).setAttribute('href', `/solicitar-cotizacion?ids=${quotationItems.join(',')}`);
+      (event.target as HTMLAnchorElement).setAttribute(
+        'href',
+        `/solicitar-cotizacion?ids=${quotationItems.join(',')}`
+      );
     } else {
       event.preventDefault();
       alert('No hay plantas seleccionadas');

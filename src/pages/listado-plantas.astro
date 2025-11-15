@@ -1,0 +1,25 @@
+---
+import PlantList from '../components/PlantList.astro';
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Listado de plantas - Alto Jardin"
+  description="Explora nuestro listado completo de plantas ornamentales en Alto Jardin. Encuentra suculentas, palmas, flores y más para embellecer tu hogar o jardín."
+  image="https://alto-jardin.vercel.app/og-image.jpg"
+>
+
+  <section
+    class="mx-auto container mt-8 mb-16 rounded-2xl overflow-hidden flex flex-col justify-center items-center gap-8"
+  >
+    <h1 class="font-extrabold text-8xl text-alto-jardin-1 text-center">
+      Listado completo de plantas
+    </h1>
+    <p class="text-center text-xl font-normal text-alto-jardin-1 ">
+      Descubre nuestra amplia variedad de plantas ornamentales en Alto Jardin.
+      Desde suculentas y palmas hasta flores vibrantes, tenemos todo lo que
+      necesitas para transformar tu espacio verde. Explora nuestro listado
+      completo y encuentra la planta perfecta para tu hogar o jardín.
+    </p>
+</section>
+<PlantList />
+</Layout>

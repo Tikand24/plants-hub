@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+import logoFinal from '../images/logofinal.jpg';
+
+const { medias, name, price, type, _id, slug } = Astro.props;
+
+// Obtener la primera imagen del array medias
+let firstImage = null;
+if (medias.length > 0) {
+  firstImage = medias[0].filename;
+}
+//group type by 2 registers
+// Group type array into pairs
+const groupedTypes = type.reduce((acc: any[], curr: any, i: number) => {
+  if (i % 2 === 0) {
+    acc.push([curr]);
+  } else {
+    acc[acc.length - 1].push(curr);
+  }
+  return acc;
+}, []);
+---
+
+<article class="h-full min-h-[40vh] max-h-[45vh] flex flex-col">
+  <div class="flex-1 min-h-0 mb-4">
+    <a href={`/planta/${slug}`} class="block h-full">
+      {
+        firstImage ? (
+          <Image
+            class="object-cover rounded-lg h-full w-full drop-shadow-xl"
+            src={firstImage}
+            alt={name}
+            width={400}
+            height={300}
+            transition:name={`${slug}-img`}
+          />
+        ) : (
+          <Image
+            class="object-cover rounded-lg h-full w-full drop-shadow-xl"
+            src={logoFinal}
+            alt={name}
+            width={400}
+            height={300}
+            transition:name={`${slug}-img`}
+          />
+        )
+      }
+    </a>
+  </div>
+  <div class="flex-shrink-0 flex flex-row justify-between items-center">
+    <div class="flex flex-col gap-2">
+      <p class="text-alto-jardin-1 text-base font-medium leading-normal">{name}</p>
+      <p class="text-alto-jardin-4 text-sm font-normal leading-normal">{
+            Number(price).toLocaleString('es-CO', {
+              style: 'currency',
+              currency: 'COP',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })
+          }</p>
+    </div>
+    <button
+      class="add-btn-alto-jardin text-base px-4 py-2 text-alto-jardin-1 bg-alto-jardin-3 rounded-xl  shadow hover:bg-alto-jardin-4/80 cursor-pointer"
+      data-id={`${_id}`}>Cotizar</button
+    >
+  </div>
+</article>
+
+<script>
+  const loadButtonsActions = () => {
+  const btnsQuote = document.querySelectorAll(".add-btn-alto-jardin");
+  btnsQuote.forEach((btn)=>{
+    btn.addEventListener("click",()=>{
+      let quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+      const _id = btn.getAttribute('data-id');
+      
+      // Verificar si la planta ya está en la lista
+      const existingIndex = quotationItems.findIndex((item:string) => item === _id);
+      
+      if (existingIndex === -1) {
+        // Agregar la planta
+        
+        quotationItems.push(_id);
+        localStorage.setItem('quotationItems', JSON.stringify(quotationItems));
+        
+        // Cambiar el estilo y texto del botón
+        btn.textContent = 'Agregado';
+        btn.classList.remove('bg-alto-jardin-3');
+        btn.classList.add('bg-alto-jardin-5');
+        btn.classList.add('hover:bg-green-600');
+      } else {
+        // Eliminar la planta
+        quotationItems.splice(existingIndex, 1);
+        localStorage.setItem('quotationItems', JSON.stringify(quotationItems));
+        
+        // Restaurar el estilo y texto original del botón
+        btn.textContent = 'Cotizar';
+        btn.classList.remove('bg-alto-jardin-5', 'hover:bg-green-600');
+        btn.classList.add('bg-alto-jardin-3');
+      }
+      
+      updateQuotationCount();
+    });
+  })
+}
+
+  // Verificar el estado inicial de los botones
+  function checkInitialButtonState() {
+    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const btnsQuote = document.querySelectorAll(".add-btn-alto-jardin");
+    btnsQuote.forEach((btn) => {
+      const _id = btn.getAttribute('data-id');
+      const isInList = quotationItems.some((item:string) => item === _id);
+      
+      if (isInList) {
+        btn.textContent = 'Agregado';
+        btn.classList.remove('bg-alto-jardin-3');
+        btn.classList.add('bg-alto-jardin-5');
+        btn.classList.add('hover:bg-alto-jardin-5/80');
+      }
+    });
+  }
+
+  function updateQuotationCount() {
+    const quotationItems = JSON.parse(localStorage.getItem('quotationItems') || '[]');
+    const countElement = document.querySelector('.quotation-count');
+    console.log(quotationItems.length);
+    if (countElement) {
+      countElement.textContent = quotationItems.length;
+    }
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    loadButtonsActions();
+    updateQuotationCount();
+    checkInitialButtonState();
+  });
+</script>
+
