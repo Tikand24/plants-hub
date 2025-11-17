@@ -25,12 +25,12 @@ const masVendidas = [rosas, troncoDeLaFelicidad, miniRosos, canabis];
   image="https://alto-jardin.vercel.app/og-image.jpg"
 >
   <section
-    class="mx-auto w-5xl h-[480px] mt-8 mb-16 rounded-2xl overflow-hidden"
+    class="mx-auto w-dvw lg:w-5xl h-[480px] mt-2 mb-8 lg:mt-8 lg:mb-16 rounded-2xl overflow-hidden"
   >
     <SwiperBanner />
   </section>
   <section
-    class="mx-auto w-5xl mt-8 mb-16 rounded-2xl overflow-hidden flex flex-col gap-16"
+    class="mx-auto px-2 lg:px-0 w-dvw lg:w-5xl mt-2 mb-8 lg:mt-8 lg:mb-16 rounded-2xl overflow-hidden flex flex-col gap-16"
   >
     <CardCategoryPlantList
       category="Buganvillas/Veraneras"
@@ -39,12 +39,12 @@ const masVendidas = [rosas, troncoDeLaFelicidad, miniRosos, canabis];
     <CardCategoryPlantList category="Mas vendidas" plants={masVendidas} />
   </section>
   <section
-    class="mx-auto w-5xl mt-8 mb-16 rounded-2xl overflow-hidden flex flex-col justify-center items-center gap-16"
+    class="mx-auto px-2 lg:px-0 w-dvw lg:w-5xl mt-2 mb-8 lg:mt-8 lg:mb-16 rounded-2xl overflow-hidden flex flex-col justify-center items-center gap-6 lg:gap-16"
   >
-    <h2 class="font-extrabold text-8xl text-alto-jardin-1 text-center">
+    <h2 class="font-extrabold text-3xl lg:text-8xl text-alto-jardin-1 text-center">
       ¡Haz crecer tu negocio con Alto Jardín!
     </h2>
-    <p class="text-center text-xl font-normal text-alto-jardin-1 max-w-3xl">
+    <p class="text-center lg:text-xl text-base font-normal text-alto-jardin-1 max-w-3xl">
       Alto jardin esta ubicado en Fusagasuga, Cundinamarca. Ofrecemos
       diferentes servicios desde envio directo por parte de nuestros vehiculos
       hasta la recepcion de listas/cotizaciones y recogida en nuestro vivero para que con tu
@@ -84,7 +84,7 @@ const masVendidas = [rosas, troncoDeLaFelicidad, miniRosos, canabis];
             </span>
           </a>
   </section>
-  <section class="mx-auto w-5xl mt-8 mb-16">
+  <section class="mx-auto w-dvw lg:w-5xl px-2 lg:px-0 mt-2 mb-8 lg:mt-8 lg:mb-16">
     <ContactInfo />
   </section>
 </Layout>
